@@ -24,6 +24,12 @@ import { DataInterceptor } from './util/data.interceptor';
         database: configService.get('DB_DATABASE'),
         entities: [__dirname + '/**/*.model{.ts,.js}'],
         synchronize: true,
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }
       }),
       inject: [ConfigService],
     }),
