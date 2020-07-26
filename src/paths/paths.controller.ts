@@ -7,7 +7,7 @@ export class PathsController {
   constructor(private pathsService: PathsService) {}
 
   @Get()
-  getMissions() {
+  getPaths() {
     return this.pathsService.getPaths();
   }
 }
