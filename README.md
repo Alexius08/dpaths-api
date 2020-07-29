@@ -1,5 +1,7 @@
 # Distilled Paths API
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 **Distilled Paths** is a Nest.js application providing REST API for the corresponding [Ionic/Angular PWA](https://distilled-paths.netlify.app/). It's hooked to PostgreSQL database for data persistence via TypeORM. 
 
 ## Quick Start
