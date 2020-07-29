@@ -1,10 +1,10 @@
 {
   "name": "distilled-paths-api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "version": "0.1.0",
+  "description": "Back End API For Distilled Paths Ionic App Project",
+  "author": "Fyodor Loenko",
+  "homepage": "https://distilled-paths.herokuapp.com/",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
