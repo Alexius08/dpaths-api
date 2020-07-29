@@ -26,6 +26,10 @@ DB_PASSWORD=DataBasePassword
 DB_DATABASE=DataBaseName
 ```
 
+## Documentation
+
+Swagger API documentation is available under `https://.../api` 
+
 ## Deployment
 
 The `master` branch of this respository is automatically deployed [to Heroku](https://distilled-paths.herokuapp.com/) where it's hosted along with the connected database.

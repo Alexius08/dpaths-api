@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Path } from '../models/path.model';
 import { Repository } from 'typeorm';
+
+import { Path } from '../models/path.model';
 
 @Injectable()
 export class PathsService {
