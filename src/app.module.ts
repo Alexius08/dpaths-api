@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DataInterceptor } from './util/data.interceptor';
-import { PathsModule } from './paths/paths.module';
+import { PathModule } from './paths/path.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { PathsModule } from './paths/paths.module';
       }),
       inject: [ConfigService],
     }),
-    PathsModule,
+    PathModule,
   ],
   controllers: [AppController],
   providers: [

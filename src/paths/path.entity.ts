@@ -6,7 +6,7 @@ export class PathEntity {
   @PrimaryGeneratedColumn('uuid')
   @IsString()
   @IsOptional()
-  id: string;
+  pathId: string;
 
   @Column('text')
   @IsString()
