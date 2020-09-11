@@ -2,15 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Path } from '../models/path.model';
+import { PathEntity } from './paths.entity';
 
 @Injectable()
 export class PathsService {
-  constructor(
-    @InjectRepository(Path) private pathRepository: Repository<Path>,
-  ) {}
+  constructor(@InjectRepository(PathEntity) private pathRepository: Repository<PathEntity>) {}
 
-  async getPaths(): Promise<Path[]> {
+  async getPaths(): Promise<PathEntity[]> {
     return this.pathRepository.find();
   }
 }

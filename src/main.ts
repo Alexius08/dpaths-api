@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+
+const port = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,5 +26,7 @@ async function bootstrap() {
   app.enableCors();
 
   await app.listen(process.env.PORT || 3000);
+
+  Logger.log(`Distilled Paths API Server is running on http://localhost:${port}`, 'App Bootstrap');
 }
 bootstrap();

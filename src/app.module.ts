@@ -5,10 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PathsService } from './paths/paths.service';
-import { PathsController } from './paths/paths.controller';
-import { Path } from './models/path.model';
 import { DataInterceptor } from './util/data.interceptor';
+import { PathsModule } from './paths/paths.module';
 
 @Module({
   imports: [
@@ -22,23 +20,26 @@ import { DataInterceptor } from './util/data.interceptor';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [__dirname + '/**/*.model{.ts,.js}'],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
         ssl: true,
         extra: {
           ssl: {
             rejectUnauthorized: false,
           },
-        }
+        },
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Path])
+    PathsModule,
   ],
-  controllers: [AppController, PathsController],
-  providers: [AppService, PathsService, {
-    provide: APP_INTERCEPTOR,
-    useClass: DataInterceptor,
-  }],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: DataInterceptor,
+    },
+  ],
 })
 export class AppModule {}
