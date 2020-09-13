@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -7,6 +7,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DataInterceptor } from './util/data.interceptor';
 import { PathModule } from './paths/path.module';
+import { HttpErrorFilter } from './util/http-error.filter';
+import { LoggingInterceptor } from './util/logging.interceptor';
 
 @Module({
   imports: [
@@ -39,6 +41,14 @@ import { PathModule } from './paths/path.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: DataInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter,
     },
   ],
 })
