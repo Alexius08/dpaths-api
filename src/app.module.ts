@@ -40,15 +40,15 @@ import { LoggingInterceptor } from './util/logging.interceptor';
     AppService,
     {
       provide: APP_INTERCEPTOR,
-      useClass: DataInterceptor,
-    },
-    {
-      provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
     {
       provide: APP_FILTER,
       useClass: HttpErrorFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: DataInterceptor,
     },
   ],
 })
