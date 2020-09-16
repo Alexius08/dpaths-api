@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DataInterceptor } from './util/data.interceptor';
 import { PathModule } from './paths/path.module';
 import { HttpErrorFilter } from './util/http-error.filter';
 import { LoggingInterceptor } from './util/logging.interceptor';
+import { ValidationPipe } from "./util/validation.pipe";
 
 @Module({
   imports: [
@@ -47,8 +47,8 @@ import { LoggingInterceptor } from './util/logging.interceptor';
       useClass: HttpErrorFilter,
     },
     {
-      provide: APP_INTERCEPTOR,
-      useClass: DataInterceptor,
+      provide: APP_PIPE,
+      useClass: ValidationPipe
     },
   ],
 })

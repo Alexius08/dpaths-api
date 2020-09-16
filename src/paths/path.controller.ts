@@ -1,12 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UsePipes } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { PathService } from './path.service';
 import { PathDto } from './path.dto';
+import { ValidationPipe } from "../util/validation.pipe";
 
 @ApiTags('paths')
 @Controller('paths')
 export class PathController {
+  private logger = new Logger('PathController');
+
   constructor(private pathService: PathService) {}
 
   @Get()
@@ -25,7 +28,9 @@ export class PathController {
     status: 200,
     description: 'The learning path with corresponding courses',
   })
+  @UsePipes(ValidationPipe)
   createPath(@Body() pathData: PathDto) {
+    this.logger.log(JSON.stringify(pathData));
     return this.pathService.createPath(pathData);
   }
 
@@ -45,8 +50,10 @@ export class PathController {
     status: 200,
     description: 'The learning path with corresponding courses',
   })
-  updatePath(@Param('pathId') pathId: string, @Body() data: PathDto) {
-    return this.pathService.updatePath(pathId, data);
+  @UsePipes(ValidationPipe)
+  updatePath(@Param('pathId') pathId: string, @Body() pathData: PathDto) {
+    this.logger.log(JSON.stringify(pathData));
+    return this.pathService.updatePath(pathId, pathData);
   }
 
   @Delete(':pathId')
