@@ -1,6 +1,6 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Exclude } from "class-transformer";
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class UserEntity {
