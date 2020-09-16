@@ -9,6 +9,7 @@ import { PathModule } from './paths/path.module';
 import { HttpErrorFilter } from './util/http-error.filter';
 import { LoggingInterceptor } from './util/logging.interceptor';
 import { ValidationPipe } from "./util/validation.pipe";
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ValidationPipe } from "./util/validation.pipe";
       inject: [ConfigService],
     }),
     PathModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
