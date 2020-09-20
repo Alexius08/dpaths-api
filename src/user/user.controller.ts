@@ -22,16 +22,16 @@ export class UserController {
     return this.userService.getUsers();
   }
 
-  @Post('login')
-  @ApiOperation({ summary: 'Log existing user in' })
+  @Post('signin')
+  @ApiOperation({ summary: 'Sign existing user in' })
   @ApiResponse({
     status: 200,
-    description: 'Is the user logged in successfully',
+    description: 'Is the user signed in successfully',
   })
   @UsePipes(ValidationPipe)
   logIn(@Body() userData: UserDto) {
     this.logger.log(JSON.stringify(userData));
-    return this.userService.logIn(userData);
+    return this.userService.signIn(userData);
   }
 
   @Post('signup')

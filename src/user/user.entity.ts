@@ -2,6 +2,7 @@ import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Exclude } from 'class-transformer';
+import { UserRo } from './user.dto';
 
 @Entity()
 export class UserEntity {
@@ -12,23 +13,32 @@ export class UserEntity {
     type: 'text',
     unique: true,
   })
-  username: string;
+  userName: string;
 
-  @Exclude()
   @Column('text')
   password: string;
 
   @BeforeInsert()
-  async hashPassword() {
+  async hashPassword(): Promise<void> {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  async comparePassword(attempt: string) {
+  toResponseObject(showToken: boolean = true): UserRo {
+    const { userId, userName, token } = this;
+    const responseObject: UserRo = { userId, userName };
+    if (showToken) {
+      responseObject.token = token;
+    }
+
+    return responseObject;
+  }
+
+  async comparePassword(attempt: string): Promise<boolean> {
     return await bcrypt.compare(attempt, this.password);
   }
 
-  private get token() {
-    const {userId, username} = this;
-    return jwt.sign({userId, username}, process.env.SECRET, { expiresIn: '7d'})
+  private get token(): string {
+    const { userId, userName } = this;
+    return jwt.sign({ userId, userName }, process.env.DP_JWT_SECRET_KEY, { expiresIn: process.env.DP_JWT_EXP });
   }
 }

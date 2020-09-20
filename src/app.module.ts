@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PathModule } from './paths/path.module';
+import { PathModule } from './path/path.module';
 import { HttpErrorFilter } from './util/http-error.filter';
 import { LoggingInterceptor } from './util/logging.interceptor';
 import { ValidationPipe } from './util/validation.pipe';
