@@ -19,7 +19,7 @@ export class UserController {
     status: 200,
     description: 'The list of DP app users',
   })
-  @UseGuards(AuthGuard)
+  @UseGuards(new AuthGuard())
   getUsers() {
     return this.userService.getUsers();
   }
