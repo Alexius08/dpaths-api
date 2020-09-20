@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -11,6 +11,7 @@ import { LoggingInterceptor } from './util/logging.interceptor';
 import { ValidationPipe } from './util/validation.pipe';
 import { UserModule } from './user/user.module';
 import { DataInterceptor } from './util/data.interceptor';
+import { AuthGuard } from './util/auth.guard';
 
 @Module({
   imports: [
@@ -56,6 +57,10 @@ import { DataInterceptor } from './util/data.interceptor';
     {
       provide: APP_INTERCEPTOR,
       useClass: DataInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })

@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Logger, Post, UsePipes } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Logger, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
-import { UserDto } from "./user.dto";
-import { ValidationPipe } from "../util/validation.pipe";
+import { UserDto } from './user.dto';
+import { ValidationPipe } from '../util/validation.pipe';
+import { AuthGuard } from '../util/auth.guard';
 
 @ApiTags('users')
 @Controller('users')
@@ -18,6 +19,7 @@ export class UserController {
     status: 200,
     description: 'The list of DP app users',
   })
+  @UseGuards(AuthGuard)
   getUsers() {
     return this.userService.getUsers();
   }
