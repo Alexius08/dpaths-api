@@ -1,7 +1,6 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { Exclude } from 'class-transformer';
 import { UserRo } from './user.dto';
 
 @Entity()
@@ -23,7 +22,7 @@ export class UserEntity {
     this.password = await bcrypt.hash(this.password, 10);
   }
 
-  toResponseObject(showToken: boolean = true): UserRo {
+  toResponseObject(showToken = true): UserRo {
     const { userId, userName, token } = this;
     const responseObject: UserRo = { userId, userName };
     if (showToken) {
