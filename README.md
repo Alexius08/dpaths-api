@@ -7,7 +7,7 @@
 ## Quick Start
 
 1. `npm install`
-1. `npm start`<sup>1</sup>
+1. `npm run start:dev`<sup>1</sup>
 
 *<sup>1</sup> You will need to add `.env` file with necessary [environment variables](#obfuscated-environment-variables) to the root folder when working with the app locally*
 
@@ -24,6 +24,9 @@ DB_PORT=DataBasePort
 DB_USERNAME=DataBaseUserName
 DB_PASSWORD=DataBasePassword
 DB_DATABASE=DataBaseName
+DP_JWT_SECRET_KEY=YourJwtSecretKeyString
+DP_JWT_EXP=JwtExpirationPerion
+DP_ADMIN_CODE=AdminSignUpSecretCodeString
 ```
 
 ## Documentation

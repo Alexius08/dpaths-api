@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post, UseGuards, UsePipes } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
@@ -46,5 +46,15 @@ export class UserController {
   signUp(@Body() userData: UserDto) {
     this.logger.log(JSON.stringify(userData));
     return this.userService.signUp(userData);
+  }
+
+  @Delete(':userId')
+  @ApiOperation({ summary: 'Delete specific user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Is the specified user deleted successfully',
+  })
+  deletePath(@Param('userId') userId: string) {
+    return this.userService.deleteUser(userId);
   }
 }

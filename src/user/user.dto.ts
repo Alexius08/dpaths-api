@@ -8,6 +8,9 @@ export class UserDto {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsString()
+  code: string;
 }
 
 export class UserRo {

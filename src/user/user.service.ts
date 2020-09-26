@@ -4,10 +4,11 @@ import { Repository } from "typeorm";
 
 import { UserDto, UserRo } from "./user.dto";
 import { UserEntity } from "./user.entity";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>) {}
+  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>, private configService: ConfigService) {}
 
   async getUsers(): Promise<UserRo[]> {
     const users = await this.userRepository.find();
@@ -24,7 +25,10 @@ export class UserService {
   }
 
   async signUp(userData: UserDto): Promise<UserRo> {
-    const { userName } = userData;
+    const { userName, code } = userData;
+    if (code !== this.configService.get('DP_ADMIN_CODE')) {
+      throw new HttpException('The entered secret code is not correct', HttpStatus.BAD_REQUEST);
+    }
     let user = await this.userRepository.findOne({ where: { userName } });
     if (user) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
@@ -32,5 +36,14 @@ export class UserService {
     user = this.userRepository.create(userData);
     await this.userRepository.save(user);
     return user.toResponseObject();
+  }
+
+  async deleteUser(userId:string): Promise<any> {
+    const user = await this.userRepository.findOne({ where: { userId } });
+    if (!user) {
+      throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
+    }
+    await this.userRepository.delete({ userId });
+    return { deleted: true };
   }
 }
