@@ -10,7 +10,6 @@ import { HttpErrorFilter } from './util/http-error.filter';
 import { LoggingInterceptor } from './util/logging.interceptor';
 import { ValidationPipe } from './util/validation.pipe';
 import { UserModule } from './user/user.module';
-import { DataInterceptor } from './util/data.interceptor';
 
 @Module({
   imports: [
@@ -52,10 +51,6 @@ import { DataInterceptor } from './util/data.interceptor';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: DataInterceptor,
     },
   ],
 })
