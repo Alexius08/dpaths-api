@@ -17,6 +17,9 @@ export class LabEntity {
   @Column('text')
   description: string;
 
-  @ManyToOne((type) => CourseEntity, (course) => course.labs)
+  @Column('text')
+  duration: string;
+
+  @ManyToOne((type) => CourseEntity, (course) => course.labs, { onDelete: 'SET NULL' })
   course: CourseEntity;
 }
