@@ -1,12 +1,14 @@
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+
 import { UserRo } from './user.dto';
+import { ID } from '../shared/models/id.model';
 
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
-  userId: string;
+  userId: ID;
 
   @Column({
     type: 'text',

@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PathModule } from './path/path.module';
-import { HttpErrorFilter } from './util/http-error.filter';
-import { LoggingInterceptor } from './util/logging.interceptor';
-import { ValidationPipe } from './util/validation.pipe';
+import { HttpErrorFilter } from './shared/util/http-error.filter';
+import { LoggingInterceptor } from './shared/util/logging.interceptor';
+import { ValidationPipe } from './shared/util/validation.pipe';
 import { UserModule } from './user/user.module';
 
 @Module({

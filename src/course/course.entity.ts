@@ -3,9 +3,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ID } from '../shared/models/id.model';
 
 @Entity()
-export class PathEntity {
+export class CourseEntity {
   @PrimaryGeneratedColumn('uuid')
-  pathId: ID;
+  courseId: string;
 
   @Column('text')
   name: string;
@@ -13,6 +13,14 @@ export class PathEntity {
   @Column('text')
   icon: string;
 
+  @Column('text')
+  objective: string; // i.e. description
+
+  // isOptional: boolean; - @todo FE only, remove
+
   @Column('varchar', { array: true })
-  courses: ID[];
+  articles: ID[];
+
+  @Column('varchar', { array: true })
+  labs: ID[];
 }

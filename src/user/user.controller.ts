@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, UseGuards, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Logger, Param, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
-import { UserDto } from './user.dto';
-import { ValidationPipe } from '../util/validation.pipe';
-import { AuthGuard } from '../util/auth.guard';
+import { UserDto, UserRo } from './user.dto';
+import { ValidationPipe } from '../shared/util/validation.pipe';
+import { AuthGuard } from '../shared/util/auth.guard';
+import { ID } from '../shared/models/id.model';
+import { DeleteResponse } from '../shared/models/delete-response.model';
 
 @ApiTags('users')
 @Controller('users')
@@ -31,7 +33,7 @@ export class UserController {
     description: 'Is the user signed in successfully',
   })
   @UsePipes(ValidationPipe)
-  logIn(@Body() userData: UserDto) {
+  logIn(@Body() userData: UserDto): Promise<UserRo> {
     this.logger.log(JSON.stringify(userData));
     return this.userService.signIn(userData);
   }
@@ -43,7 +45,7 @@ export class UserController {
     description: 'Is the user signed up successfully',
   })
   @UsePipes(ValidationPipe)
-  signUp(@Body() userData: UserDto) {
+  signUp(@Body() userData: UserDto): Promise<UserRo> {
     this.logger.log(JSON.stringify(userData));
     return this.userService.signUp(userData);
   }
@@ -54,7 +56,8 @@ export class UserController {
     status: 200,
     description: 'Is the specified user deleted successfully',
   })
-  deletePath(@Param('userId') userId: string) {
+  @UseGuards(new AuthGuard())
+  deletePath(@Param('userId') userId: ID): Promise<DeleteResponse> {
     return this.userService.deleteUser(userId);
   }
 }

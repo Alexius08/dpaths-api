@@ -1,9 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { PathEntity } from './path.entity';
 import { PathDto } from './path.dto';
+import { DeleteResponse } from '../shared/models/delete-response.model';
+import { ID } from '../shared/models/id.model';
 
 @Injectable()
 export class PathService {
@@ -13,13 +15,13 @@ export class PathService {
     return this.pathRepository.find();
   }
 
-  async createPath(data: PathDto): Promise<any> {
+  async createPath(data: PathDto): Promise<PathEntity> {
     const path = this.pathRepository.create(data);
     await this.pathRepository.save(path);
     return path;
   }
 
-  async getPath(pathId: string): Promise<any> {
+  async getPath(pathId: ID): Promise<PathEntity> {
     const path = await this.pathRepository.findOne({ where: { pathId } });
     if (!path) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
@@ -27,7 +29,7 @@ export class PathService {
     return path;
   }
 
-  async updatePath(pathId: string, data: PathDto): Promise<any> {
+  async updatePath(pathId: ID, data: PathDto): Promise<PathEntity> {
     const path = await this.pathRepository.findOne({ where: { pathId } });
     if (!path) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
@@ -36,12 +38,12 @@ export class PathService {
     return this.pathRepository.findOne({ where: { pathId } });
   }
 
-  async deletePath(pathId: string): Promise<any> {
+  async deletePath(pathId: ID): Promise<DeleteResponse> {
     const path = await this.pathRepository.findOne({ where: { pathId } });
     if (!path) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
     }
     await this.pathRepository.delete({ pathId });
-    return { deleted: true };
+    return { deleted: true, id: pathId };
   }
 }

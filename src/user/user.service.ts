@@ -1,18 +1,23 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
+import { Repository } from 'typeorm';
 
-import { UserDto, UserRo } from "./user.dto";
-import { UserEntity } from "./user.entity";
-import { ConfigService } from "@nestjs/config";
+import { UserDto, UserRo } from './user.dto';
+import { UserEntity } from './user.entity';
+import { DeleteResponse } from '../shared/models/delete-response.model';
+import { ID } from '../shared/models/id.model';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(UserEntity) private userRepository: Repository<UserEntity>, private configService: ConfigService) {}
+  constructor(
+    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>,
+    private configService: ConfigService
+  ) {}
 
   async getUsers(): Promise<UserRo[]> {
     const users = await this.userRepository.find();
-    return users.map(user => user.toResponseObject(false))
+    return users.map((user) => user.toResponseObject(false));
   }
 
   async signIn(userData: UserDto): Promise<UserRo> {
@@ -38,12 +43,12 @@ export class UserService {
     return user.toResponseObject();
   }
 
-  async deleteUser(userId:string): Promise<any> {
+  async deleteUser(userId: ID): Promise<DeleteResponse> {
     const user = await this.userRepository.findOne({ where: { userId } });
     if (!user) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
     }
     await this.userRepository.delete({ userId });
-    return { deleted: true };
+    return { deleted: true, id: userId };
   }
 }

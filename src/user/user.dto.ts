@@ -1,5 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
+import { ID } from '../shared/models/id.model';
+
 export class UserDto {
   @IsNotEmpty()
   @IsString()
@@ -9,12 +11,11 @@ export class UserDto {
   @IsString()
   password: string;
 
-  @IsString()
-  code: string;
+  code?: string;
 }
 
 export class UserRo {
-  userId: string;
+  userId: ID;
   userName: string;
   token?: string;
 }

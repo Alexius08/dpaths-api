@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { PathService } from './path.service';
 import { PathDto } from './path.dto';
-import { ValidationPipe } from "../util/validation.pipe";
-import { AuthGuard } from "../util/auth.guard";
+import { ValidationPipe } from '../shared/util/validation.pipe';
+import { AuthGuard } from '../shared/util/auth.guard';
+import { PathEntity } from './path.entity';
+import { ID } from '../shared/models/id.model';
 
 @ApiTags('paths')
 @Controller('paths')
@@ -19,7 +21,7 @@ export class PathController {
     status: 200,
     description: 'The list of available learning paths with corresponding courses',
   })
-  getPaths() {
+  getPaths(): Promise<PathEntity[]> {
     return this.pathService.getPaths();
   }
 
@@ -29,7 +31,7 @@ export class PathController {
     status: 200,
     description: 'The learning path with corresponding courses',
   })
-  getPath(@Param('pathId') pathId: string) {
+  getPath(@Param('pathId') pathId: ID): Promise<PathEntity> {
     return this.pathService.getPath(pathId);
   }
 
@@ -41,7 +43,7 @@ export class PathController {
   })
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
-  createPath(@Body() pathData: PathDto) {
+  createPath(@Body() pathData: PathDto): Promise<PathEntity> {
     this.logger.log(JSON.stringify(pathData));
     return this.pathService.createPath(pathData);
   }
@@ -54,7 +56,7 @@ export class PathController {
   })
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
-  updatePath(@Param('pathId') pathId: string, @Body() pathData: PathDto) {
+  updatePath(@Param('pathId') pathId: ID, @Body() pathData: PathDto): Promise<PathEntity> {
     this.logger.log(JSON.stringify(pathData));
     return this.pathService.updatePath(pathId, pathData);
   }
@@ -66,7 +68,7 @@ export class PathController {
     description: 'Is the specified learning path deleted successfully',
   })
   @UseGuards(new AuthGuard())
-  deletePath(@Param('pathId') pathId: string) {
+  deletePath(@Param('pathId') pathId: ID) {
     return this.pathService.deletePath(pathId);
   }
 }

@@ -1,4 +1,6 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsOptional, IsString } from 'class-validator';
+
+import { ID } from '../shared/models/id.model';
 
 export class PathDto {
   @IsString()
@@ -10,5 +12,5 @@ export class PathDto {
 
   @IsString({ each: true })
   @IsOptional({ each: true })
-  courses?: string[];
+  courses?: ID[];
 }
