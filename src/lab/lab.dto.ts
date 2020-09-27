@@ -1,3 +1,1 @@
-export class LabDto {
-
-}
+export class LabDto {}

@@ -3,8 +3,6 @@ import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { PathModule } from './path/path.module';
 import { HttpErrorFilter } from './shared/util/http-error.filter';
 import { LoggingInterceptor } from './shared/util/logging.interceptor';
@@ -43,11 +41,9 @@ import { QuestionModule } from './question/question.module';
     CourseModule,
     ArticleModule,
     LabModule,
-    QuestionModule
+    QuestionModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,

@@ -1,9 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ID } from '../shared/models/id.model';
 import { ArticleEntity } from '../article/article.entity';
 import { LabEntity } from '../lab/lab.entity';
 import { QuestionEntity } from '../question/question.entity';
+import { PathEntity } from '../path/path.entity';
 
 @Entity()
 export class CourseEntity {
@@ -19,12 +20,12 @@ export class CourseEntity {
   @Column('text')
   objective: string; // i.e. description
 
-  @OneToMany(type => QuestionEntity, question => question.course, { cascade: true })
+  @OneToMany((type) => QuestionEntity, (question) => question.course, { cascade: true })
   questions: QuestionEntity[];
 
-  @OneToMany(type => ArticleEntity, article => article.course, { cascade: true })
+  @OneToMany((type) => ArticleEntity, (article) => article.course, { cascade: true })
   articles: ArticleEntity[];
 
-  @OneToMany(type => LabEntity, lab => lab.course, { cascade: true })
+  @OneToMany((type) => LabEntity, (lab) => lab.course, { cascade: true })
   labs: LabEntity[];
 }

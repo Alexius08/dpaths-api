@@ -12,7 +12,7 @@ export class PathService {
   constructor(@InjectRepository(PathEntity) private pathRepository: Repository<PathEntity>) {}
 
   async getPaths(): Promise<PathEntity[]> {
-    return this.pathRepository.find();
+    return this.pathRepository.find({ relations: ['courses'] });
   }
 
   async createPath(data: PathDto): Promise<PathEntity> {
@@ -22,7 +22,7 @@ export class PathService {
   }
 
   async getPath(pathId: ID): Promise<PathEntity> {
-    const path = await this.pathRepository.findOne({ where: { pathId } });
+    const path = await this.pathRepository.findOne({ where: { pathId }, relations: ['courses'] });
     if (!path) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
     }
@@ -30,12 +30,12 @@ export class PathService {
   }
 
   async updatePath(pathId: ID, data: PathDto): Promise<PathEntity> {
-    const path = await this.pathRepository.findOne({ where: { pathId } });
+    const path = await this.pathRepository.findOne({ where: { pathId }, relations: ['courses'] });
     if (!path) {
       throw new HttpException('Path not found', HttpStatus.NOT_FOUND);
     }
-    await this.pathRepository.update({ pathId }, data);
-    return this.pathRepository.findOne({ where: { pathId } });
+    await this.pathRepository.save({ ...data, pathId });
+    return this.pathRepository.findOne({ where: { pathId }, relations: ['courses'] });
   }
 
   async deletePath(pathId: ID): Promise<DeleteResponse> {

@@ -9,6 +9,7 @@ export class QuestionDto {
 
   options: QuestionOption[];
 
+  @IsString()
   answer: OptionId;
 
   course: CourseEntity;

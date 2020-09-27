@@ -23,11 +23,12 @@ export class QuestionEntity {
   @Column('text')
   text: string;
 
+  @Column({ type: 'json', nullable: true })
   options: QuestionOption[];
 
   @Column('text')
   answer: OptionId; // correct answer
 
-  @ManyToOne((type) => CourseEntity, (course) => course.questions)
+  @ManyToOne((type) => CourseEntity, (course) => course.questions, { onDelete: 'SET NULL' })
   course: CourseEntity;
 }

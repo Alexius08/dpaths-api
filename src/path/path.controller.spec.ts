@@ -12,7 +12,7 @@ describe('Path Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PathController],
-      providers: [PathService, { provide: getRepositoryToken(PathEntity), useFactory: repositoryMockFactory }]
+      providers: [PathService, { provide: getRepositoryToken(PathEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     controller = module.get<PathController>(PathController);
