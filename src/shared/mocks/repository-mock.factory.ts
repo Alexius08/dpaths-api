@@ -5,6 +5,7 @@ export type MockType<T> = {
 };
 
 // @ts-ignore
+// @todo get rid of the TS error for typings of this factory (not breaking the dependant unit tests)
 export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(() => ({
   findOne: jest.fn((input: any): any => input),
   find: jest.fn((input: any): any => input),
