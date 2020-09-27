@@ -1,4 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('question')
-export class QuestionController {}
+import { QuestionService } from './question.service';
+
+@ApiTags('questions')
+@Controller('questions')
+export class QuestionController {
+  private logger = new Logger('PathController');
+
+  constructor(private questionService: QuestionService) {}
+}
