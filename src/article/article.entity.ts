@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { CourseEntity } from '../course/course.entity';
 
 @Entity()
 export class ArticleEntity {
@@ -14,5 +16,6 @@ export class ArticleEntity {
   @Column('text')
   description: string;
 
-  // isFinished: boolean; - @todo FE only, remove
+  @ManyToOne((type) => CourseEntity, (course) => course.articles)
+  course: CourseEntity;
 }

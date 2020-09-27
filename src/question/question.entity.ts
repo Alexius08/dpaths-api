@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ID } from '../shared/models/id.model';
+import { CourseEntity } from '../course/course.entity';
 
 enum OptionId {
   a = 'A',
@@ -25,5 +26,8 @@ export class QuestionEntity {
   options: QuestionOption[];
 
   @Column('text')
-  answer: OptionId;
+  answer: OptionId; // correct answer
+
+  @ManyToOne((type) => CourseEntity, (course) => course.questions)
+  course: CourseEntity;
 }

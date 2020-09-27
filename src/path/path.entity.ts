@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ID } from '../shared/models/id.model';
+import { CourseEntity } from '../course/course.entity';
 
 @Entity()
 export class PathEntity {
@@ -13,6 +14,7 @@ export class PathEntity {
   @Column('text')
   icon: string;
 
-  @Column('varchar', { array: true })
-  courses: ID[];
+  @ManyToMany((type) => CourseEntity, { cascade: true })
+  @JoinTable()
+  courses: CourseEntity[];
 }

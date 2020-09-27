@@ -10,6 +10,10 @@ import { HttpErrorFilter } from './shared/util/http-error.filter';
 import { LoggingInterceptor } from './shared/util/logging.interceptor';
 import { ValidationPipe } from './shared/util/validation.pipe';
 import { UserModule } from './user/user.module';
+import { CourseModule } from './course/course.module';
+import { ArticleModule } from './article/article.module';
+import { LabModule } from './lab/lab.module';
+import { QuestionModule } from './question/question.module';
 
 @Module({
   imports: [
@@ -34,8 +38,12 @@ import { UserModule } from './user/user.module';
       }),
       inject: [ConfigService],
     }),
-    PathModule,
     UserModule,
+    PathModule,
+    CourseModule,
+    ArticleModule,
+    LabModule,
+    QuestionModule
   ],
   controllers: [AppController],
   providers: [

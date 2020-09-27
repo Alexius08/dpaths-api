@@ -1,6 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { ID } from '../shared/models/id.model';
+import { ArticleEntity } from '../article/article.entity';
+import { LabEntity } from '../lab/lab.entity';
+import { QuestionEntity } from '../question/question.entity';
 
 @Entity()
 export class CourseEntity {
@@ -16,11 +19,12 @@ export class CourseEntity {
   @Column('text')
   objective: string; // i.e. description
 
-  // isOptional: boolean; - @todo FE only, remove
+  @OneToMany(type => QuestionEntity, question => question.course, { cascade: true })
+  questions: QuestionEntity[];
 
-  @Column('varchar', { array: true })
-  articles: ID[];
+  @OneToMany(type => ArticleEntity, article => article.course, { cascade: true })
+  articles: ArticleEntity[];
 
-  @Column('varchar', { array: true })
-  labs: ID[];
+  @OneToMany(type => LabEntity, lab => lab.course, { cascade: true })
+  labs: LabEntity[];
 }

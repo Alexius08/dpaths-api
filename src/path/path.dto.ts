@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-import { ID } from '../shared/models/id.model';
+import { CourseEntity } from '../course/course.entity';
 
 export class PathDto {
   @IsString()
@@ -10,7 +10,6 @@ export class PathDto {
   @IsOptional()
   icon?: string;
 
-  @IsString({ each: true })
   @IsOptional({ each: true })
-  courses?: ID[];
+  courses?: CourseEntity[];
 }
