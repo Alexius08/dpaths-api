@@ -17,7 +17,7 @@ interface QuestionOption {
 @Entity()
 export class QuestionEntity {
   @PrimaryGeneratedColumn('uuid')
-  questionId: string;
+  questionId: ID;
 
   @Column('text')
   text: string;
