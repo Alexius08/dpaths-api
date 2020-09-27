@@ -3,14 +3,14 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ID } from '../shared/models/id.model';
 import { CourseEntity } from '../course/course.entity';
 
-enum OptionId {
+export enum OptionId {
   a = 'A',
   b = 'B',
   c = 'C',
   d = 'D',
 }
 
-interface QuestionOption {
+export interface QuestionOption {
   optionId: OptionId;
   text: string;
 }

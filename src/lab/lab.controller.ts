@@ -6,7 +6,7 @@ import { LabService } from './lab.service';
 @ApiTags('labs')
 @Controller('labs')
 export class LabController {
-  private logger = new Logger('PathController');
+  private logger = new Logger('LabController');
 
   constructor(private labService: LabService) {}
 }
