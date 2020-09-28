@@ -36,3 +36,7 @@ Swagger API documentation is available under `https://.../api`
 ## Deployment
 
 The `master` branch of this respository is automatically deployed [to Heroku](https://distilled-paths.herokuapp.com/) where it's hosted along with the connected PostgreSQL database. The admin panel is available at https://dashboard.heroku.com/apps/distilled-paths.
+
+## Contributing
+
+Thank you for your interest in contributing to Distilled Paths! There are many ways to contribute to this project. Get started [here](https://github.com/dpaths/dpaths-api/blob/master/.github/CONTRIBUTING.md).
