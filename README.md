@@ -7,7 +7,7 @@
 ## Quick Start
 
 1. `npm install`
-1. `npm start`<sup>1</sup>
+1. `npm run start:dev`<sup>1</sup>
 
 *<sup>1</sup> You will need to add `.env` file with necessary [environment variables](#obfuscated-environment-variables) to the root folder when working with the app locally*
 
@@ -24,6 +24,9 @@ DB_PORT=DataBasePort
 DB_USERNAME=DataBaseUserName
 DB_PASSWORD=DataBasePassword
 DB_DATABASE=DataBaseName
+DP_JWT_SECRET_KEY=YourJwtSecretKeyString
+DP_JWT_EXP=JwtExpirationPerion
+DP_ADMIN_CODE=AdminSignUpSecretCodeString
 ```
 
 ## Documentation
@@ -32,4 +35,8 @@ Swagger API documentation is available under `https://.../api`
 
 ## Deployment
 
-The `master` branch of this respository is automatically deployed [to Heroku](https://distilled-paths.herokuapp.com/) where it's hosted along with the connected database.
+The `master` branch of this respository is automatically deployed [to Heroku](https://distilled-paths.herokuapp.com/) where it's hosted along with the connected PostgreSQL database. The admin panel is available at https://dashboard.heroku.com/apps/distilled-paths.
+
+## Contributing
+
+Thank you for your interest in contributing to Distilled Paths! There are many ways to contribute to this project. Get started [here](https://github.com/dpaths/dpaths-api/blob/master/.github/CONTRIBUTING.md).

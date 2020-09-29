@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PathsService } from './paths/paths.service';
-import { PathsController } from './paths/paths.controller';
-import { Path } from './models/path.model';
-import { DataInterceptor } from './util/data.interceptor';
+import { PathModule } from './path/path.module';
+import { HttpErrorFilter } from './shared/util/http-error.filter';
+import { LoggingInterceptor } from './shared/util/logging.interceptor';
+import { ValidationPipe } from './shared/util/validation.pipe';
+import { UserModule } from './user/user.module';
+import { CourseModule } from './course/course.module';
+import { ArticleModule } from './article/article.module';
+import { LabModule } from './lab/lab.module';
+import { QuestionModule } from './question/question.module';
 
 @Module({
   imports: [
@@ -22,23 +25,37 @@ import { DataInterceptor } from './util/data.interceptor';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [__dirname + '/**/*.model{.ts,.js}'],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
         ssl: true,
         extra: {
           ssl: {
             rejectUnauthorized: false,
           },
-        }
+        },
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([Path])
+    UserModule,
+    PathModule,
+    CourseModule,
+    ArticleModule,
+    LabModule,
+    QuestionModule,
   ],
-  controllers: [AppController, PathsController],
-  providers: [AppService, PathsService, {
-    provide: APP_INTERCEPTOR,
-    useClass: DataInterceptor,
-  }],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+  ],
 })
 export class AppModule {}
