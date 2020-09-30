@@ -11,7 +11,7 @@ describe('Question Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [QuestionController],
-      providers: [QuestionService, {provide: getRepositoryToken(QuestionEntity), useFactory: repositoryMockFactory }]
+      providers: [QuestionService, { provide: getRepositoryToken(QuestionEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     controller = module.get<QuestionController>(QuestionController);

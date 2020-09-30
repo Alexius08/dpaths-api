@@ -10,7 +10,7 @@ describe('LabService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [LabService, {provide: getRepositoryToken(LabEntity), useFactory: repositoryMockFactory }],
+      providers: [LabService, { provide: getRepositoryToken(LabEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     service = module.get<LabService>(LabService);

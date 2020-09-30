@@ -12,7 +12,7 @@ describe('Course Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CourseController],
-      providers: [CourseService, {provide: getRepositoryToken(CourseEntity), useFactory: repositoryMockFactory }]
+      providers: [CourseService, { provide: getRepositoryToken(CourseEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     controller = module.get<CourseController>(CourseController);

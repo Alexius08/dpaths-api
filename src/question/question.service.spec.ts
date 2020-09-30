@@ -7,10 +7,11 @@ import { QuestionEntity } from './question.entity';
 
 describe('QuestionService', () => {
   let service: QuestionService;
-  {}
+  {
+  }
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [QuestionService, {provide: getRepositoryToken(QuestionEntity), useFactory: repositoryMockFactory }],
+      providers: [QuestionService, { provide: getRepositoryToken(QuestionEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     service = module.get<QuestionService>(QuestionService);

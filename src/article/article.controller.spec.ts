@@ -12,7 +12,7 @@ describe('Article Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ArticleController],
-      providers: [ArticleService, {provide: getRepositoryToken(ArticleEntity), useFactory: repositoryMockFactory }]
+      providers: [ArticleService, { provide: getRepositoryToken(ArticleEntity), useFactory: repositoryMockFactory }],
     }).compile();
 
     controller = module.get<ArticleController>(ArticleController);
