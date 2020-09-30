@@ -22,7 +22,7 @@ export class UserController {
     description: 'The list of DP app users',
   })
   @UseGuards(new AuthGuard())
-  getUsers() {
+  getUsers(): Promise<UserRo[]> {
     return this.userService.getUsers();
   }
 
