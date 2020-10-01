@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CourseService } from './course.service';
 import { CourseEntity } from './course.entity';
@@ -41,6 +41,7 @@ export class CourseController {
     status: 200,
     description: 'The learning course with corresponding data (articles, labs, questions)',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   createCourse(@Body() courseData: CourseDto): Promise<CourseEntity> {
@@ -54,6 +55,7 @@ export class CourseController {
     status: 200,
     description: 'The learning course with corresponding data (articles, labs, questions)',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   updateCourse(@Param('courseId') courseId: ID, @Body() courseData: CourseDto): Promise<CourseEntity> {
@@ -67,6 +69,7 @@ export class CourseController {
     status: 200,
     description: 'Is the specified learning course deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deleteCourse(@Param('courseId') courseId: ID) {
     return this.courseService.deleteCourse(courseId);

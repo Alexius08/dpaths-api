@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { LabService } from './lab.service';
 import { LabEntity } from './lab.entity';
@@ -41,6 +41,7 @@ export class LabController {
     status: 200,
     description: 'The lab data',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   createLab(@Body() labData: LabDto): Promise<LabEntity> {
@@ -54,6 +55,7 @@ export class LabController {
     status: 200,
     description: 'The lab data',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   updateLab(@Param('labId') labId: ID, @Body() labData: LabDto): Promise<LabEntity> {
@@ -67,6 +69,7 @@ export class LabController {
     status: 200,
     description: 'Is the specified lab deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deleteLab(@Param('labId') labId: ID) {
     return this.labService.deleteLab(labId);

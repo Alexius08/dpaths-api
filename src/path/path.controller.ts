@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { PathService } from './path.service';
 import { PathDto } from './path.dto';
@@ -41,6 +41,7 @@ export class PathController {
     status: 200,
     description: 'The learning path with corresponding courses',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   createPath(@Body() pathData: PathDto): Promise<PathEntity> {
@@ -54,6 +55,7 @@ export class PathController {
     status: 200,
     description: 'The learning path with corresponding courses',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   updatePath(@Param('pathId') pathId: ID, @Body() pathData: PathDto): Promise<PathEntity> {
@@ -67,6 +69,7 @@ export class PathController {
     status: 200,
     description: 'Is the specified learning path deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deletePath(@Param('pathId') pathId: ID) {
     return this.pathService.deletePath(pathId);

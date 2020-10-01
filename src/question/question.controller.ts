@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { QuestionService } from './question.service';
 import { QuestionEntity } from './question.entity';
@@ -41,6 +41,7 @@ export class QuestionController {
     status: 200,
     description: 'The skill test question',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   createQuestion(@Body() questionData: QuestionDto): Promise<QuestionEntity> {
@@ -54,6 +55,7 @@ export class QuestionController {
     status: 200,
     description: 'The skill test question',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   updateQuestion(@Param('questionId') questionId: ID, @Body() questionData: QuestionDto): Promise<QuestionEntity> {
@@ -67,6 +69,7 @@ export class QuestionController {
     status: 200,
     description: 'Is the specified skill test question deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deleteQuestion(@Param('questionId') questionId: ID) {
     return this.questionService.deleteQuestion(questionId);

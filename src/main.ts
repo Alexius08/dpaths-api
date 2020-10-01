@@ -17,6 +17,7 @@ async function bootstrap() {
     .setDescription('REST API for Distilled Paths application')
     .setVersion('1.0')
     .addTag('paths')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

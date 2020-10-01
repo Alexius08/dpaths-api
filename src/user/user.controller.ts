@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
 import { UserDto, UserRo } from './user.dto';
@@ -21,6 +21,7 @@ export class UserController {
     status: 200,
     description: 'The list of DP app users',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   getUsers(): Promise<UserRo[]> {
     return this.userService.getUsers();
@@ -56,6 +57,7 @@ export class UserController {
     status: 200,
     description: 'Is the specified user deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deletePath(@Param('userId') userId: ID): Promise<DeleteResponse> {
     return this.userService.deleteUser(userId);

@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Logger, Param, Patch, Post, UseGuards, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ArticleService } from './article.service';
 import { ArticleEntity } from '../article/article.entity';
@@ -41,6 +41,7 @@ export class ArticleController {
     status: 200,
     description: 'The article data',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   createArticle(@Body() articleData: ArticleDto): Promise<ArticleEntity> {
@@ -54,6 +55,7 @@ export class ArticleController {
     status: 200,
     description: 'The article data',
   })
+  @ApiBearerAuth()
   @UsePipes(ValidationPipe)
   @UseGuards(new AuthGuard())
   updateArticle(@Param('articleId') articleId: ID, @Body() articleData: ArticleDto): Promise<ArticleEntity> {
@@ -67,6 +69,7 @@ export class ArticleController {
     status: 200,
     description: 'Is the specified article deleted successfully',
   })
+  @ApiBearerAuth()
   @UseGuards(new AuthGuard())
   deleteArticle(@Param('articleId') articleId: ID) {
     return this.articleService.deleteArticle(articleId);
